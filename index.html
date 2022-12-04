@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Board VR</title>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+</head>
+<body>
+    <a-scene background="color:#393E46">
+        <!-- ground -->
+        <a-plane
+            position="0 0 0"
+            rotation="-90 0 0"
+            width="8"
+            height="8"
+            color="#F2E7D5"
+        ></a-plane>
+
+        <!-- left wall -->
+        <a-box 
+            position="-4 1.5 0"
+            height="3"
+            depth="0.2"
+            width="8"
+            rotation="0 90 0"
+            color="#6D9886">
+        </a-box>
+            
+        <!-- right wall -->
+        <a-box
+            position="4 1.5 0"
+            height="3"
+            depth="0.2"
+            width="8"
+            rotation="0 90 0"
+            color="#6D9886"            >
+        </a-box>
+
+        <!-- back wall -->
+        <a-box
+            position="0 1.5 -4"
+            height="3"
+            depth="0.2"
+            width="8.2"
+            color="#6D9886"            >
+        </a-box>
+
+        <!-- front wall -->
+        <a-box
+            position="0 1.5 4"
+            height="3"
+            depth="0.2"
+            width="8.2"
+            color="#6D9886"            >
+        </a-box>
+        <!-- <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" shadow></a-sphere>
+        <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" shadow></a-cylinder>
+        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow></a-plane> -->
+    </a-scene>
+</body>
+</html>
