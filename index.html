@@ -4,63 +4,206 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Number Board VR</title>
+    <title>Number Board VR</title>   
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+    <script src="/dist/aframe-physics-system.js"></script> 
 </head>
 <body>
-    <a-scene background="color:#393E46">
+    <a-scene physics="debug: false">
+        <a-assets>
+            <a-mixin
+                id="ground"
+                geometry="primitive: plane;
+                          height: 10;
+                          width: 10"
+                material="color: #F2E7D5"
+                shader="flat"
+                rotation="-90 0 0"
+                static-body
+            ></a-mixin>
+            <a-mixin
+                id="wall"
+                geometry="primitive: box;
+                          height: 4;
+                          width: 10;
+                          depth: 0.2"
+                rotation="0 90 0"
+                material="color: #6D9886"
+                static-body
+            ></a-mixin>
+            <a-mixin
+                id="board"
+                geometry="primitive: box;
+                          height: 4;
+                          width: 5;
+                          depth: 0.1"
+                material="src: assets/board.jpg ;color: #D0C9C0"
+                rotation="-90 0 0"
+            ></a-mixin>
+            <a-mixin
+                id="chip"
+                geometry="primitive: cylinder;
+                          height: 0.25;
+                          radius: 0.4;"
+                material="color: #6D8B74"
+            ></a-mixin>
+
+        </a-assets>
+
+        <a-entity position="0 0 2.5">
+            <a-camera><a-cursor></a-cursor></a-camera>
+            <a-entity static-body="shape: sphere; sphereRadius: 0.02" sphere-collider="objects: a-cylinder" super-hands hand-controls="hand: left"></a-entity>
+            <a-entity static-body="shape: sphere; sphereRadius: 0.02" sphere-collider="objects: a-cylinder" super-hands hand-controls="hand: right"></a-entity>
+        </a-entity>
+                
         <!-- ground -->
-        <a-plane
+        <a-entity
+            mixin="ground"
             position="0 0 0"
-            rotation="-90 0 0"
-            width="8"
-            height="8"
-            color="#F2E7D5"
-        ></a-plane>
+            static-body
+        ></a-entity>
 
         <!-- left wall -->
-        <a-box 
-            position="-4 1.5 0"
-            height="3"
-            depth="0.2"
-            width="8"
-            rotation="0 90 0"
-            color="#6D9886">
-        </a-box>
+        <a-entity 
+            mixin="wall"
+            position="-5 2 0"
+        ></a-entity>
             
         <!-- right wall -->
-        <a-box
-            position="4 1.5 0"
-            height="3"
-            depth="0.2"
-            width="8"
-            rotation="0 90 0"
-            color="#6D9886"            >
-        </a-box>
+        <a-entity
+            mixin="wall"
+            position="4.9 2 0"   
+        ></a-entity>
 
         <!-- back wall -->
-        <a-box
-            position="0 1.5 -4"
-            height="3"
-            depth="0.2"
-            width="8.2"
-            color="#6D9886"            >
-        </a-box>
+        <a-entity
+            mixin="wall"
+            position="0 2 -4.9"
+            rotation="0 0 0"         
+        ></a-entity>
 
         <!-- front wall -->
-        <a-box
-            position="0 1.5 4"
-            height="3"
-            depth="0.2"
-            width="8.2"
-            color="#6D9886"            >
-        </a-box>
-        <!-- <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" shadow></a-sphere>
-        <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" shadow></a-cylinder>
-        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow></a-plane> -->
+        <a-entity
+            mixin="wall"
+            position="0 2 4.9"      
+            rotation="0 0 0"
+        ></a-entity>
+
+        <!-- board -->
+        <a-entity
+            mixin="board"
+            position="0 0.05 -2"
+        ></a-entity>
+
+        <!-- chips 1-5 -->
+        <a-cylinder
+            grabbable
+            dynamic-body
+            id="1"
+            height="0.15";
+            radius="0.4";
+            src="/assets/1.jpg"
+            position="-3 1 1"            
+        ></a-cylinder>
+
+        <a-cylinder
+            grabbable
+            dynamic-body
+            id="2"
+            height="0.15";
+            radius="0.4";
+            src="/assets/2.jpg"
+            position="-3 1.2 1"            
+        ></a-cylinder>
+
+        <a-cylinder
+            grabbable
+            dynamic-body
+            id="3"
+            height="0.15";
+            radius="0.4";
+            src="/assets/3.jpg"
+            position="-3 1.4 1"           
+        ></a-cylinder>
+
+        <a-cylinder
+            grabbable
+            dynamic-body
+            id="4"
+            height="0.15";
+            radius="0.4";
+            src="/assets/4.jpg"
+            position="-3 1.5 1"           
+        ></a-cylinder>
+
+        <a-cylinder
+            grabbable
+            dynamic-body
+            id="5"
+            height="0.15";
+            radius="0.4";
+            src="/assets/5.jpg"
+            side=""
+            position="-3 1.6 1"           
+        ></a-cylinder>
+
+        <!-- chips 6-10 -->
+        <a-cylinder
+            grabbable
+            dynamic-body
+            id="6"
+            height="0.15";
+            radius="0.4";
+            src="/assets/6.jpg"
+            position="3 1 1"            
+        ></a-cylinder>
+
+        <a-cylinder
+            grabbable
+            dynamic-body
+            id="7"
+            height="0.15";
+            radius="0.4";
+            src="/assets/7.jpg"
+            position="3 1.2 1"            
+        ></a-cylinder>
+
+        <a-cylinder
+            grabbable
+            dynamic-body
+            id="8"
+            height="0.15";
+            radius="0.4";
+            src="/assets/8.jpg"
+            position="3 1.4 1"            
+        ></a-cylinder>
+
+        <a-cylinder
+            grabbable
+            dynamic-body
+            id="9"
+            height="0.15";
+            radius="0.4";
+            src="/assets/9.jpg"
+            position="3 1.6 1"            
+        ></a-cylinder>
+
+        <a-cylinder
+            grabbable
+            dynamic-body
+            id="10"
+            height="0.15";
+            radius="0.4";
+            src="/assets/10.jpg"
+            position="3 1.8 1"            
+        ></a-cylinder>
+        
+
+        <a-cylinder position="1 4.0 -3" radius="0.5" height="1.5" color="#FFC65D" shadow dynamic-body></a-cylinder>
+
     </a-scene>
 </body>
 </html>
